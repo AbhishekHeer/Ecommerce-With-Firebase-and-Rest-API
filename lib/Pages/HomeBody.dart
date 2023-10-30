@@ -32,8 +32,8 @@ class _HomeBodyState extends State<HomeBody> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Buy Kar',
-            style: GoogleFonts.notoSansMiao(
+            'E-Co',
+            style: GoogleFonts.niramit(
               fontSize: h * 0.04,
               fontWeight: FontWeight.w500,
             ),

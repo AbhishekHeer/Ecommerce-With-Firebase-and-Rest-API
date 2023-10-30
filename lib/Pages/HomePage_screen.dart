@@ -41,10 +41,7 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: Obx(() => AnimatedBottomNavigationBar(
               notchMargin: Get.width * 0.02,
               height: Get.height * 0.09,
-              backgroundGradient: const LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Colors.redAccent, Colors.blueAccent]),
+              backgroundColor: Colors.blueAccent,
               icons: iconList,
               gapWidth: Get.width * 0.2,
               activeIndex: bottom.index.value,

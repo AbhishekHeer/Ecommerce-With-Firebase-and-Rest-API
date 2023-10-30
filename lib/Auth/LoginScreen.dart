@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Center(
                         child: IconButton(
                           onPressed: () {},
-                          icon: const Icon(FontAwesomeIcons.github),
+                          icon: const Icon(CupertinoIcons.phone),
                         ),
                       ),
                     ),

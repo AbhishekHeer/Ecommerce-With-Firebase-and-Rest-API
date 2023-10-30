@@ -12,6 +12,7 @@ class LikeProductBody extends StatefulWidget {
 }
 
 Likeproduct like = Get.put(Likeproduct());
+BuyitemController buyitems = Get.put(BuyitemController());
 
 class _LikeProductBodyState extends State<LikeProductBody> {
   @override
@@ -59,7 +60,7 @@ class _LikeProductBodyState extends State<LikeProductBody> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Get.width * 0.09),
                                 child: Text(
-                                  "${like.Title[index].toString().substring(0, 20)}...",
+                                  like.Title[index].toString(),
                                   style: GoogleFonts.museoModerno(
                                       fontSize: Get.width * 0.05),
                                 ),
@@ -83,7 +84,7 @@ class _LikeProductBodyState extends State<LikeProductBody> {
                                 IconButton(
                                     onPressed: () {
                                       like.removeproduct(
-                                        like.Title[index],
+                                        like.like[index],
                                         like.Title[index].toString(),
                                         like.Dis[index].toString(),
                                         like.Price[index],
@@ -113,10 +114,24 @@ class _LikeProductBodyState extends State<LikeProductBody> {
                       Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: Get.width * 0.05),
-                        child: Text(
-                          'Add To Cart',
-                          style: GoogleFonts.museoModerno(
-                              fontSize: Get.width * 0.03),
+                        child: InkWell(
+                          onTap: () {
+                            buyitems.addandRemove(
+                                like.like[index],
+                                like.Title[index].toString(),
+                                like.Dis[index].toString(),
+                                like.Price[index],
+                                like.Thumb[index].toString());
+
+                            Get.snackbar('Added Successfully',
+                                'Added To Cart Successfully',
+                                dismissDirection: DismissDirection.horizontal);
+                          },
+                          child: Text(
+                            'Add To Cart',
+                            style: GoogleFonts.museoModerno(
+                                fontSize: Get.width * 0.03),
+                          ),
                         ),
                       ),
                     ],

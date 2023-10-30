@@ -27,9 +27,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(context) {
     return GetMaterialApp(
-      theme: ThemeData(useMaterial3: true, primarySwatch: Colors.red),
+      theme: ThemeData(
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.blueAccent,
+            centerTitle: true,
+            foregroundColor:
+                ThemeMode.dark == true ? Colors.white : Colors.black),
+        iconTheme: const IconThemeData(
+            color: ThemeMode.dark == true ? Colors.white : Colors.black),
+        primarySwatch: Colors.red,
+      ),
       themeMode: ThemeMode.system,
-      darkTheme: ThemeData.dark(useMaterial3: true),
+      darkTheme: ThemeData.dark(
+        useMaterial3: true,
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       getPages: appRoutes(),

@@ -38,7 +38,6 @@ class HeadDrawer extends StatelessWidget {
                           radius: Get.width * 0.13,
                           child: ClipOval(
                             child: Motion(
-                              filterQuality: FilterQuality.high,
                               child: Image(
                                 image: NetworkImage(snapshot.data!.snapshot
                                     .child('image')
@@ -80,7 +79,7 @@ class HeadDrawer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name[0],
+                        name,
                         style: GoogleFonts.niramit(fontSize: Get.width * 0.04),
                       ),
                       SizedBox(
