@@ -23,6 +23,11 @@ if (flutterVersionName == null) {
 }
 
 android {
+
+   aaptOptions {  
+        cruncherEnabled = false  
+    }
+
     namespace "com.example.ecommerce"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion

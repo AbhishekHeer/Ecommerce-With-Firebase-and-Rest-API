@@ -1,8 +1,10 @@
 import 'package:ecommerce/Auth/AuthMethod.dart';
+import 'package:ecommerce/Auth/PhoneNumber.dart';
 import 'package:ecommerce/Messeges/Messege.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -40,10 +42,9 @@ class _SignUpState extends State<SignUp> {
             SizedBox(
               height: h * 0.03,
             ),
-
-            //google
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: w * 0.1),
+              padding:
+                  EdgeInsets.symmetric(horizontal: w * 0.1, vertical: h * 0.02),
               child: InkWell(
                 onTap: () {
                   Auth.signInWithGoogle().then((value) {
@@ -57,82 +58,63 @@ class _SignUpState extends State<SignUp> {
                   decoration: BoxDecoration(
                       border: Border.all(width: w * 0.003),
                       borderRadius: BorderRadius.circular(w * 0.1)),
-                  child: Center(
-                      child: Lottie.asset(
+                  child: Lottie.asset(
                     'Assets/Animation/google.json',
                     repeat: true,
                     reverse: true,
-                    height: h * 0.05,
-                  )),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: h * 0.04,
-            ),
-
-            //github
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: w * 0.1),
-              child: InkWell(
-                onTap: () {
-                  // Auth.signInWithFacebook().then((value) {
-                  //   Navigator.pushNamed(context, routes.home);
-                  //   Messege.ToastMessage('Thanks For SignUp');
-                  // }).onError((error, stackTrace) {
-                  //   Messege.ToastMessage(error.toString());
-                  // });
-                },
-                child: InkWell(
-                  onTap: () {
-                    // Auth.signInWithFacebook().then((value) {
-                    //   Navigator.pushNamed(context, routes.home);
-                    //   Messege.ToastMessage('Thanks For SignUp');
-                    // }).onError((error, stackTrace) {
-                    //   Messege.ToastMessage(error.toString());
-                    // });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: w * 0.003),
-                        borderRadius: BorderRadius.circular(w * 0.1)),
-                    child: Center(
-                        child: InkWell(
-                      onTap: () {
-                        // Auth.signInWithFacebook().then((value) {
-                        //   Navigator.pushNamed(context, routes.home);
-                        //   Messege.ToastMessage('Thanks For SignUp');
-                        // }).onError((error, stackTrace) {
-                        //   Messege.ToastMessage(error.toString());
-                        // });
-                      },
-                      child: Lottie.asset(
-                        'Assets/Animation/github.json',
-                        repeat: true,
-                        reverse: true,
-                        height: h * 0.05,
-                      ),
-                    )),
+                    height: h * 0.08,
                   ),
                 ),
               ),
             ),
 
-            //phone number
+            //google
+
             Padding(
               padding:
-                  EdgeInsets.symmetric(horizontal: w * 0.1, vertical: h * 0.04),
+                  EdgeInsets.symmetric(horizontal: w * 0.1, vertical: h * 0.02),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Auth.signInWithFacebook().then((value) {
+                    Get.to('/home');
+                    Messege.ToastMessage('Thanks For SignUp');
+                  }).onError((error, stackTrace) {
+                    Messege.ToastMessage(error.toString());
+                  });
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(width: w * 0.003),
                       borderRadius: BorderRadius.circular(w * 0.1)),
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(FontAwesomeIcons.github),
-                    ),
+                  child: Lottie.asset(
+                    'Assets/Animation/facebook.json',
+                    repeat: true,
+                    reverse: true,
+                    height: h * 0.08,
+                  ),
+                ),
+              ),
+            ),
+
+            //github
+
+            //phone number
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: w * 0.1, vertical: h * 0.02),
+              child: InkWell(
+                onTap: () {
+                  Get.toNamed('/phonenumber');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: w * 0.003),
+                      borderRadius: BorderRadius.circular(w * 0.1)),
+                  child: Lottie.asset(
+                    'Assets/Animation/Email.json',
+                    repeat: true,
+                    reverse: true,
+                    height: h * 0.08,
                   ),
                 ),
               ),

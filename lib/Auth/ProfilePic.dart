@@ -72,8 +72,7 @@ class _ProfilePicPickerState extends State<ProfilePicPicker> {
                   side: MaterialStatePropertyAll(
                       BorderSide(width: Get.width * 0.002)),
                   leading: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(FontAwesomeIcons.newspaper)),
+                      onPressed: () {}, icon: const Icon(FontAwesomeIcons.pen)),
                   hintText: 'Choose User Name',
                   onChanged: (value) {},
                 ),

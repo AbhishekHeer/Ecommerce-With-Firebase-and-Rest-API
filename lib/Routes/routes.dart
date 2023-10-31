@@ -1,4 +1,6 @@
+import 'package:ecommerce/Auth/ForgetPass.dart';
 import 'package:ecommerce/Auth/LoginScreen.dart';
+import 'package:ecommerce/Auth/PhoneNumber.dart';
 import 'package:ecommerce/Auth/ProfilePic.dart';
 import 'package:ecommerce/Auth/SignUp.dart';
 import 'package:ecommerce/Pages/HomePage_screen.dart';
@@ -53,6 +55,18 @@ appRoutes() => [
       GetPage(
         name: '/MyProduct',
         page: () => MyProduct(),
+        transition: Transition.rightToLeftWithFade,
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
+      GetPage(
+        name: '/phonenumber',
+        page: () => const PhoneNumber(),
+        transition: Transition.rightToLeftWithFade,
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
+      GetPage(
+        name: '/forget',
+        page: () => ForgetPassword(),
         transition: Transition.rightToLeftWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),

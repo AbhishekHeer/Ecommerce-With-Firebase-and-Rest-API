@@ -18,7 +18,7 @@ mine address
 
 adb connect 192.168.43.240
 adb connect 56.185.225.76
-adb connect 25.168.66.138
+adb connect 25.64.7.173
 
 
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android

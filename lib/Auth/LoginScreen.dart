@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ecommerce/Auth/AuthMethod.dart';
+import 'package:ecommerce/Auth/ForgetPass.dart';
 import 'package:ecommerce/Messeges/Messege.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,6 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
               height: h * 0.3,
               width: w,
             )),
+            SizedBox(
+              height: Get.height * .01,
+            ),
             Center(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -89,7 +93,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
-                //github
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: w * 0.1),
                   child: InkWell(
@@ -153,28 +156,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-
-                //phone number
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: w * 0.1, vertical: h * 0.02),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(width: w * 0.003),
-                          borderRadius: BorderRadius.circular(w * 0.1)),
-                      child: Center(
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(CupertinoIcons.phone),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ],
             )),
+
+            SizedBox(
+              height: Get.height * .01,
+            ),
 
             Padding(
               padding: EdgeInsets.symmetric(
@@ -229,9 +216,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: Align(
                 alignment: Alignment.topRight,
-                child: Text(
-                  'Forget Password',
-                  style: TextStyle(fontSize: w * 0.03),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(ForgetPassword());
+                  },
+                  child: Text(
+                    'Forget Password',
+                    style: TextStyle(fontSize: w * 0.03),
+                  ),
                 ),
               ),
             ),
@@ -246,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         email: _email.text.toString(),
                         password: _password.text.toString())
                     .then((value) {
-                  Navigator.pushNamed(context, '/pic');
+                  Navigator.pushNamed(context, '/home');
                   Messege.ToastMessage('Login Successfully');
                   _email.clear();
                   _password.clear();
