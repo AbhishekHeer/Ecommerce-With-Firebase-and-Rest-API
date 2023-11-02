@@ -1,12 +1,10 @@
 import 'package:ecommerce/Auth/AuthMethod.dart';
 import 'package:ecommerce/Messeges/Messege.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ForgetPassword extends StatelessWidget {
   ForgetPassword({super.key});
-  final _db = FirebaseAuth.instance;
   final ForgetEmail = TextEditingController();
   @override
   Widget build(BuildContext context) {
