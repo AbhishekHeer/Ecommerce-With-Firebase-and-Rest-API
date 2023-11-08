@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:ecommerce/Getx/get.dart';
+import 'package:ecommerce/Auth/AuthMethod.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,14 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfilePicPicker extends StatefulWidget {
-  const ProfilePicPicker({super.key});
+  final TextEditingController email;
+  final TextEditingController password;
+  final TextEditingController comfirm;
+  const ProfilePicPicker(
+      {super.key,
+      required this.email,
+      required this.password,
+      required this.comfirm});
 
   @override
   State<ProfilePicPicker> createState() => _ProfilePicPickerState();
@@ -21,9 +29,8 @@ final _name = TextEditingController();
 bool colorchange = false;
 
 final Storage = FirebaseStorage.instance;
-ImagePicController imagepic = Get.put(ImagePicController());
 
-final _db = FirebaseDatabase.instance.ref('Image');
+final _db = FirebaseDatabase.instance.ref('users');
 
 File? imagepath;
 
@@ -74,18 +81,24 @@ class _ProfilePicPickerState extends State<ProfilePicPicker> {
                   leading: IconButton(
                       onPressed: () {}, icon: const Icon(FontAwesomeIcons.pen)),
                   hintText: 'Choose User Name',
-                  onChanged: (value) {},
                 ),
               ),
-              ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                        colorchange ? Colors.red : Colors.white)),
-                child: const Text('Enter'),
-                onPressed: () {
-                  imagepic.uploadfile(_gallery!, _name.text.toString());
+              GestureDetector(
+                onTap: () async {
+                  uploadImage(_gallery).then((value) async {
+                    Navigator.pushReplacementNamed(context, '.home');
+                    await Auth.signInWithPhoneNumber(widget.email,
+                        widget.password, widget.comfirm, _name, value);
+                  }).onError((error, stackTrace) {
+                    print(error);
+                  });
                 },
-              )
+                child: Container(
+                  child: const Center(
+                    child: Text('text'),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -104,5 +117,15 @@ class _ProfilePicPickerState extends State<ProfilePicPicker> {
         _gallery = File(opencam.path);
       }
     });
+  }
+
+  Future<String> uploadImage(var imageFile) async {
+    final id = FirebaseAuth.instance.currentUser!.uid;
+    final Storage = FirebaseStorage.instance;
+    var path = Storage.ref().child('/Product-Images/$id').putFile(imageFile);
+    var download = await path.snapshot.ref.getDownloadURL();
+    final url = download.toString();
+
+    return url;
   }
 }

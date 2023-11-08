@@ -47,12 +47,6 @@ appRoutes() => [
         transitionDuration: const Duration(milliseconds: 500),
       ),
       GetPage(
-        name: '/pic',
-        page: () => const ProfilePicPicker(),
-        transition: Transition.rightToLeft,
-        transitionDuration: const Duration(milliseconds: 500),
-      ),
-      GetPage(
         name: '/MyProduct',
         page: () => MyProduct(),
         transition: Transition.rightToLeftWithFade,

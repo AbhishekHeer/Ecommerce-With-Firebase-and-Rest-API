@@ -80,6 +80,7 @@ class _SettingState extends State<Setting> {
                 SettingsItem(
                   onTap: () async {
                     await FirebaseAuth.instance.signOut();
+
                     await Navigator.pushReplacementNamed(
                         context, '/LoginScreen');
                   },

@@ -47,7 +47,7 @@ class _SignUpState extends State<SignUp> {
                   EdgeInsets.symmetric(horizontal: w * 0.1, vertical: h * 0.02),
               child: InkWell(
                 onTap: () {
-                  Auth.signInWithGoogle().then((value) {
+                  Auth().signInWithGoogle().then((value) {
                     Navigator.pushNamed(context, '/home');
                     Messege.ToastMessage('Thanks For SignUp');
                   }).onError((error, stackTrace) {

@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: InkWell(
                     onTap: () {
                       try {
-                        Auth.signInWithGoogle().then((value) {
+                        Auth().signInWithGoogle().then((value) {
                           Navigator.pushNamed(context, '/pic');
                           Messege.ToastMessage('Choose Your Profile Pic');
                         }).onError((error, stackTrace) {

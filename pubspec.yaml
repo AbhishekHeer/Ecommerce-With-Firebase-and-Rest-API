@@ -54,10 +54,10 @@ dependencies:
   path: ^1.8.3
   get: ^4.6.6
   action_slider: ^0.7.0
-  audioplayers: ^5.1.0
   animated_icon: ^0.0.5
   animate_icons: ^2.0.0
   settings_ui: ^2.0.2
+
   firebase_messaging: ^14.6.8
   flutter_custom_clippers: ^2.1.0
   profile: ^0.0.1

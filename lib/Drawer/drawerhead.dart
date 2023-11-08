@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,14 +18,18 @@ class HeadDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseDatabase.instance.ref('detail').onValue,
+        stream: FirebaseDatabase.instance.ref('users').onValue,
         builder: ((context, AsyncSnapshot<DatabaseEvent> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
-            final name = snapshot.data!.snapshot.child('name').value.toString();
+            final name = snapshot.data!.snapshot
+                .child(FirebaseAuth.instance.currentUser!.uid)
+                .child('name')
+                .value
+                .toString();
             return Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -40,6 +45,8 @@ class HeadDrawer extends StatelessWidget {
                             child: Motion(
                               child: Image(
                                 image: NetworkImage(snapshot.data!.snapshot
+                                    .child(
+                                        FirebaseAuth.instance.currentUser!.uid)
                                     .child('image')
                                     .value
                                     .toString()),
@@ -54,7 +61,7 @@ class HeadDrawer extends StatelessWidget {
                     ),
                     Padding(
                         padding: EdgeInsets.only(
-                            left: Get.width * 0.16, bottom: Get.height * 0.01),
+                            left: Get.width * 0.2, bottom: Get.height * 0.01),
                         child: Align(
                             alignment: Alignment.bottomLeft,
                             child: IconButton(

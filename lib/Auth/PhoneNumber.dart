@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:ecommerce/Auth/AuthMethod.dart';
+import 'package:ecommerce/Auth/ProfilePic.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +27,7 @@ class PhoneNumber extends StatelessWidget {
             SizedBox(
                 height: Get.height * .1,
                 child: const Center(
-                  child: Text('Sign Up With Phone Number'),
+                  child: Text('Sign Up With Email'),
                 )),
             SizedBox(
               height: Get.height * .04,
@@ -84,7 +82,10 @@ class PhoneNumber extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Auth.signInWithPhoneNumber(email, password, comfirmpassword);
+                Get.to(ProfilePicPicker(
+                    email: email,
+                    password: password,
+                    comfirm: comfirmpassword));
               },
               child: Container(
                 width: Get.width * .8,

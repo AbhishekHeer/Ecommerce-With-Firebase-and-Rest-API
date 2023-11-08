@@ -1,35 +1,71 @@
 // ignore: file_names
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Auth {
+  // final db = FirebaseDatabase.instance.ref();
+
 //google sign in
-  static Future signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+      final image = FirebaseAuth.instance.currentUser?.photoURL;
+      final nme = FirebaseAuth.instance.currentUser?.displayName;
+      final email = FirebaseAuth.instance.currentUser?.email;
+      final id = FirebaseAuth.instance.currentUser?.uid.toString();
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      FirebaseAuth.instance.signInWithCredential(credential).printInfo();
+
+      if (FirebaseAuth.instance.currentUser!.uid == email) {
+        FirebaseDatabase.instance.ref("users").child(id!).get();
+      }
+
+      var re = await FirebaseDatabase.instance
+          .ref('users')
+          .child(id!)
+          .set({'id': id, 'image': image, 'email': email, "name": nme}).then(
+              (value) {
+        navigator!.pushReplacementNamed('/home');
+      });
+      return re;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   //phone number
 
   static signInWithPhoneNumber(
-      TextEditingController email,
+      TextEditingController email0,
       TextEditingController password,
-      TextEditingController comfirmpassword) async {
+      TextEditingController comfirmpassword,
+      nme,
+      String image0) async {
     try {
-      if (email.text.isEmpty ||
+      final id = FirebaseAuth.instance.currentUser?.uid;
+
+      if (FirebaseAuth.instance.currentUser?.uid == email0.text) {
+        FirebaseDatabase.instance.ref("users").child(id!).get();
+      }
+
+      if (email0.text.isEmpty ||
           password.text.isEmpty ||
           password.text.isEmpty) {
         Get.snackbar('Opps', 'Something Is Missing');
@@ -38,12 +74,19 @@ class Auth {
       } else {
         await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
-                email: email.text.toString(),
+                email: email0.text.toString(),
                 password: comfirmpassword.text.toString())
             .then((value) async {
-          await Get.toNamed('/pic');
-          Get.snackbar('Done', 'Login Successfully');
-          email.clear();
+          await FirebaseDatabase.instance.ref('users').child(id!).set({
+            'id': id,
+            'image': image0,
+            'email': email0.text,
+            "name": nme
+          }).then((value) {
+            navigator!.pushReplacementNamed('/home');
+          });
+
+          email0.clear();
           password.clear();
           comfirmpassword.clear();
         });

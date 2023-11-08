@@ -1,4 +1,5 @@
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -252,7 +253,7 @@ class SettingHead extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseDatabase.instance.ref('detail').onValue,
+        stream: FirebaseDatabase.instance.ref('users').onValue,
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -260,9 +261,17 @@ class SettingHead extends StatelessWidget {
             );
           } else {
             return BigUserCard(
-              userName: snapshot.data!.snapshot.child('name').value.toString(),
+              userName: snapshot.data?.snapshot
+                  .child(FirebaseAuth.instance.currentUser!.uid)
+                  .child('name')
+                  .value
+                  .toString(),
               userProfilePic: NetworkImage(
-                snapshot.data!.snapshot.child('image').value.toString(),
+                snapshot.data!.snapshot
+                    .child(FirebaseAuth.instance.currentUser!.uid)
+                    .child('image')
+                    .value
+                    .toString(),
               ),
               cardActionWidget: SettingsItem(
                 icons: Icons.edit,
